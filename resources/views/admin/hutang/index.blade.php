@@ -56,7 +56,7 @@
                                         <div class="modal-content">
                                             <!-- Judul -->
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="addProductModalLabel">Tambah Karyawan</h5>
+                                                <h5 class="modal-title" id="addProductModalLabel">Tambah Hutang</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>

@@ -62,19 +62,19 @@
                                         <span class="badge bg-label-primary p-2"><i
                                                 class="bx bx-dollar text-primary"></i></span>
                                     </div>
-                                    <div class="d-flex flex-column">
+                                    {{-- <div class="d-flex flex-column">
                                         <small>2022</small>
                                         <h6 class="mb-0">$32.5k</h6>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="d-flex">
                                     <div class="me-2">
                                         <span class="badge bg-label-info p-2"><i class="bx bx-wallet text-info"></i></span>
                                     </div>
-                                    <div class="d-flex flex-column">
+                                    {{-- <div class="d-flex flex-column">
                                         <small>2021</small>
                                         <h6 class="mb-0">$41.2k</h6>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -108,7 +108,7 @@
                                     </div>
                                     <!-- Content -->
                                     <span class="text-muted fw-medium d-block mb-1 text-center ">Pendapatan</span>
-                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp 3.000.000</h6>
+                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp </h6>
                                 </div>
                             </div>
                         </div>
@@ -137,7 +137,7 @@
                                     </div>
                                     <!-- Content -->
                                     <span class="text-muted fw-medium d-block mb-1 text-center ">Pengeluaran</span>
-                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp 3.000.000</h6>
+                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp </h6>
                                 </div>
                             </div>
                         </div>
@@ -169,34 +169,37 @@
                                     </div>
                                     <!-- Content -->
                                     <span class="text-muted fw-medium d-block mb-1 text-center ">Hutang</span>
-                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp 3.000.000</h6>
+                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp </h6>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-6 mb-4">
                         <div class="card">
-                            <div class="card-body">
-                                <div class="card-title d-flex align-items-start justify-content-between">
-                                    <div class="avatar flex-shrink-0">
-                                        <img src="{{ asset('/backend/assets/img/icons/unicons/cc-primary.png') }}"
-                                            alt="Credit Card" class="rounded" />
-                                    </div>
-                                    <div class="dropdown">
-                                        <button class="btn p-0" type="button" id="cardOpt1" data-bs-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="cardOpt1">
-                                            <a class="dropdown-item" href="javascript:void(0);">View
-                                                More</a>
-                                            <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                            <div class="card shadow-sm rounded-3">
+                                <div class="card-body ">
+                                    <!-- Header Card: Icon & Dropdown -->
+                                    <div class="d-flex align-items-start justify-content-between mb-4">
+                                        <!-- Icon -->
+                                        <div class="avatar flex-shrink-0">
+                                            <img src="{{ asset('/backend/assets/img/icons/unicons/wallet.png') }}"
+                                                alt="Pendapatan" class="rounded" style="width: 40px; height: 40px;" />
+                                        </div>
+                                        <!-- Dropdown -->
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm text-secondary p-0" type="button" id="cardOpt4"
+                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="bx bx-dots-vertical-rounded fs-5"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
+                                                <li><a class="dropdown-item" href="/pengeluaran">Lihat detail</a></li>
+                                            </ul>
                                         </div>
                                     </div>
+                                    <!-- Content -->
+                                    <span class="text-muted fw-medium d-block mb-1 text-center ">Saldo</span>
+                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp </h6>
                                 </div>
-                                <span class="fw-semibold d-block mb-1">Transactions</span>
-                                <h3 class="card-title mb-2">$14,857</h3>
-
                             </div>
                         </div>
                     </div>
