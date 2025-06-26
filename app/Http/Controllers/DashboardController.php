@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hutang;
+use App\Models\Pendapatan;
+use App\Models\Pengeluaran;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        // $fasilitasCount = Fasilitas::count();
-        // $kriteriaCount = Kriteria::count();
-        // $userCount = User::count();
-        // $rusakberatCount = Fasilitas::where('kondisi_fasilitas', 'rusak berat')->count();
+        $totalPendapatan = Pendapatan::sum('jumlah');
+        $totalPengeluaran = Pengeluaran::sum('jumlah');
+        $totalHutang = Hutang::sum('jumlah');
+        $saldo = $totalPendapatan - $totalPengeluaran - $totalHutang;
 
-        return view('admin.dashboard.index',[
-
-            // 'fasilitas_count' => $fasilitasCount,
-            // 'kriteria_count' => $kriteriaCount,
-            // 'user_count' => $userCount,
-            // 'rusakberat_count' => $rusakberatCount,
-
-        ]);
+        return view('admin.dashboard.index', compact(
+            'totalPendapatan',
+            'totalPengeluaran',
+            'totalHutang',
+            'saldo'
+        ));
     }
 }

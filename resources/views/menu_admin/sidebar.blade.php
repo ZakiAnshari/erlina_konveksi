@@ -58,12 +58,15 @@
 
 
         {{-- KARYAWAN --}}
-        <li class="menu-item {{ Request::is('karyawan*') ? 'active' : '' }}">
-            <a href="/karyawan" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-id-card"></i>
-                <div data-i18n="Analytics">Karyawan</div>
-            </a>
-        </li>
+        @if (auth()->check() && auth()->user()->role_id != 2)
+            <li class="menu-item {{ Request::is('karyawan*') ? 'active' : '' }}">
+                <a href="/karyawan" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-id-card"></i>
+                    <div data-i18n="Analytics">Karyawan</div>
+                </a>
+            </li>
+        @endif
+
 
         {{-- LAPORAN --}}
 
@@ -91,14 +94,17 @@
         </li>
 
 
+        @if (auth()->check() && auth()->user()->role_id != 2)
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Hak Akses</span></li>
+            {{-- USER --}}
 
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Hak Akses</span></li>
-        {{-- USER --}}
-        <li class="menu-item {{ Request::is('user*') ? 'active' : '' }}">
-            <a href="/user" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user-circle"></i>
-                <div data-i18n="Analytics">User</div>
-            </a>
-        </li>
+            <li class="menu-item {{ Request::is('user*') ? 'active' : '' }}">
+                <a href="/user" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-user-circle"></i>
+                    <div data-i18n="Analytics">User</div>
+                </a>
+            </li>
+        @endif
+
     </ul>
 </aside>

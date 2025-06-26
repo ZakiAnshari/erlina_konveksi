@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
     {
         $roles = [
             ['name' => 'Admin'],
-            ['name' => 'Bendahara']
+            ['name' => 'Karyawan']
         ];
         foreach ($roles as $role) {
             Roles::create($role);
@@ -37,11 +37,11 @@ class UserSeeder extends Seeder
         ]);
         // Bendahara
         User::create([
-            'name' => 'Bendahara Erlina',
-            'username' => 'Bendahara',
+            'name' => 'Karyawan Erlina',
+            'username' => 'Karyawan',
             'contact' => '085501010101',
             'role_id' => 2, // Misalnya 2 = Bendahara
-            'email' => 'bendahara@example.com',
+            'email' => 'Karyawan@example.com',
             'jenis_kelamin' => 'Perempuan',
             'email_verified_at' => now(),
             'password' => Hash::make('123'), // Ganti juga di production

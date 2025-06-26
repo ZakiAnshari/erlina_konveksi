@@ -108,7 +108,7 @@
                                     </div>
                                     <!-- Content -->
                                     <span class="text-muted fw-medium d-block mb-1 text-center ">Pendapatan</span>
-                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp </h6>
+                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp {{ number_format($totalPendapatan, 0, ',', '.') }} </h6>
                                 </div>
                             </div>
                         </div>
@@ -137,7 +137,7 @@
                                     </div>
                                     <!-- Content -->
                                     <span class="text-muted fw-medium d-block mb-1 text-center ">Pengeluaran</span>
-                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp </h6>
+                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp {{ number_format($totalPengeluaran, 0, ',', '.') }}</h6>
                                 </div>
                             </div>
                         </div>
@@ -169,7 +169,7 @@
                                     </div>
                                     <!-- Content -->
                                     <span class="text-muted fw-medium d-block mb-1 text-center ">Hutang</span>
-                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp </h6>
+                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp {{ number_format($totalHutang, 0, ',', '.') }} </h6>
                                 </div>
                             </div>
                         </div>
@@ -198,7 +198,7 @@
                                     </div>
                                     <!-- Content -->
                                     <span class="text-muted fw-medium d-block mb-1 text-center ">Saldo</span>
-                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp </h6>
+                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp {{ number_format($saldo, 0, ',', '.') }} </h6>
                                 </div>
                             </div>
                         </div>

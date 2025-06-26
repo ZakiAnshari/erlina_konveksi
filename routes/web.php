@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\HutangController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Middleware\RoleAccessMiddleware;
 use App\Http\Controllers\PendapatanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\LaporanPendapatanController;
@@ -43,11 +44,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/hutang-edit/{id}', [HutangController::class, 'update']);
     Route::get('/hutang-destroy/{id}', [HutangController::class, 'destroy']);
     //KARYAWAN
-    Route::get('/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
-    Route::post('/karyawan-add', [KaryawanController::class, 'store'])->name('karyawan.store');
-    Route::get('/karyawan-edit/{id}', [KaryawanController::class, 'edit']);
-    Route::post('/karyawan-edit/{id}', [KaryawanController::class, 'update']);
-    Route::get('/karyawan-destroy/{id}', [KaryawanController::class, 'destroy']);
+    Route::get('/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index')->middleware(RoleAccessMiddleware::class);
+    Route::post('/karyawan-add', [KaryawanController::class, 'store'])->name('karyawan.store')->middleware(RoleAccessMiddleware::class);
+    Route::get('/karyawan-edit/{id}', [KaryawanController::class, 'edit'])->middleware(RoleAccessMiddleware::class);
+    Route::post('/karyawan-edit/{id}', [KaryawanController::class, 'update'])->middleware(RoleAccessMiddleware::class);
+    Route::get('/karyawan-destroy/{id}', [KaryawanController::class, 'destroy'])->middleware(RoleAccessMiddleware::class);
     //LAPORAN-PENDAPATAN
     Route::get('/laporan/pendapatan', [LaporanPendapatanController::class, 'index'])->name('laporan.pendapatan');
     Route::get('/laporan/pendapatan-cetak', [LaporanPendapatanController::class, 'cetakpendapatan'])->name('laporan.pendapatan-cetak');
@@ -55,12 +56,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/laporan/pengeluaran', [LaporanPengeluaranController::class, 'index'])->name('laporan.pengeluaran');
     Route::get('/laporan/pengeluaran-cetak', [LaporanPengeluaranController::class, 'cetakpengeluaran'])->name('laporan.pengeluaran-cetak');
     // USER
-    Route::get('/user', [UserController::class, 'index'])->name('user.index');
-    Route::post('/user-add', [UserController::class, 'store'])->name('user.store');
-    Route::get('/user-edit/{id}', [UserController::class, 'edit']);
-    Route::post('/user-edit/{id}', [UserController::class, 'update']);
-    Route::get('/user-destroy/{id}', [UserController::class, 'destroy']);
-    Route::get('/user-show/{id}', [UserController::class, 'show'])->name('user.show');
+    Route::get('/user', [UserController::class, 'index'])->name('user.index')->middleware(RoleAccessMiddleware::class);
+    Route::post('/user-add', [UserController::class, 'store'])->name('user.store')->middleware(RoleAccessMiddleware::class);
+    Route::get('/user-edit/{id}', [UserController::class, 'edit'])->middleware(RoleAccessMiddleware::class);
+    Route::post('/user-edit/{id}', [UserController::class, 'update'])->middleware(RoleAccessMiddleware::class);
+    Route::get('/user-destroy/{id}', [UserController::class, 'destroy'])->middleware(RoleAccessMiddleware::class);
+    Route::get('/user-show/{id}', [UserController::class, 'show'])->name('user.show')->middleware(RoleAccessMiddleware::class);
     // LOGOUT
     Route::get('/logout', [AuthController::class, 'logout']);
 });
+
