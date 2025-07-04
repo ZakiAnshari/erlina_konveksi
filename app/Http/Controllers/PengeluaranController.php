@@ -18,11 +18,13 @@ class PengeluaranController extends Controller
         // Query awal pendapatan
         $query = Pengeluaran::query();
 
-        // Filter pencarian berdasarkan 'sumber' jika tersedia
+        // Filter pencarian berdasarkan 'sumber' atau 'id' jika tersedia
         if (!empty($sumber)) {
-            $query->where('sumber', 'LIKE', '%' . $sumber . '%');
+            $query->where(function ($q) use ($sumber) {
+                $q->where('sumber', 'LIKE', '%' . $sumber . '%')
+                    ->orWhere('id', 'LIKE', '%' . $sumber . '%');
+            });
         }
-
         // Eksekusi query dengan paginasi
         $pengeluarans = $query->paginate($paginate)->withQueryString();
 

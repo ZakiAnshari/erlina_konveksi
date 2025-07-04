@@ -92,8 +92,7 @@
                                                                 <input type="file" name="bukti_pengeluaran"
                                                                     class="form-control" id="imageGallerypengeluaran"
                                                                     accept="image/*"
-                                                                    onchange="previewImage(this, 'previewGallerypengeluaran')"
-                                                                    >
+                                                                    onchange="previewImage(this, 'previewGallerypengeluaran')">
 
 
                                                             </div>
@@ -132,6 +131,7 @@
                                             <th>Sumber</th>
                                             <th>Jumlah</th>
                                             <th style="width: 8px;text-align:center">Bukti</th>
+                                            <th style="width: 5px">ID</th>
                                             <th style="width: 80px; text-align: center;">Aksi</th>
                                         </tr>
                                     </thead>
@@ -154,6 +154,7 @@
                                                         <span class="text-muted">Tidak ada bukti</span>
                                                     @endif
                                                 </td>
+                                                <td>{{ $item->id }}</td>
                                                 <td>
                                                     <a href="pengeluaran-edit/{{ $item->id }}"
                                                         class="btn btn-icon btn-outline-primary" title="Edit Data">

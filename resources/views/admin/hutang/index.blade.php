@@ -143,6 +143,7 @@
                                             <th>Jatuh Tempo</th>
                                             <th>Status</th>
                                             <th>Tanggal Dicatat</th>
+                                            <th style="width: 5px">ID</th>
                                             <th style="width: 80px; text-align: center;">Aksi</th>
                                         </tr>
                                     </thead>
@@ -168,6 +169,7 @@
                                                 </td>
 
                                                 <td>{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
+                                                <td>{{ $item->id }}</td>
                                                 <td>
                                                     <a href="hutang-edit/{{ $item->id }}"
                                                         class="btn btn-icon btn-outline-primary" title="Edit Data">

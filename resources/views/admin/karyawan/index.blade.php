@@ -24,17 +24,25 @@
                                 <h5>Table Karyawan</h5>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <!-- Form Search -->
-                                    <form method="GET" class="d-flex align-items-center my-3" style="max-width: 350px;">
-                                        <div class="input-group shadow-sm" style="height: 38px; width: 100%;">
-                                            <input type="text" name="nama" value="{{ request('nama') }}"
-                                                class="form-control border-end-0 py-2 px-3" style="font-size: 0.9rem;"
-                                                placeholder="Cari nama karyawan..." aria-label="Search">
-                                            <button class="btn btn-outline-primary px-3" type="submit"
-                                                style="font-size: 0.9rem;">
-                                                <i class="bx bx-search"></i>
-                                            </button>
-                                        </div>
-                                    </form>
+                                   <form method="GET" class="d-flex align-items-center my-3" style="max-width: 350px;">
+    <div class="input-group shadow-sm" style="height: 38px; width: 100%;">
+        <input 
+            type="text" 
+            name="nama" 
+            value="{{ request('nama') }}" 
+            class="form-control border-end-0 py-2 px-3" 
+            style="font-size: 0.9rem;" 
+            placeholder="Cari nama atau ID karyawan..." 
+            aria-label="Cari nama atau ID">
+        <button 
+            class="btn btn-outline-primary px-3" 
+            type="submit" 
+            style="font-size: 0.9rem;">
+            <i class="bx bx-search"></i>
+        </button>
+    </div>
+</form>
+
                                     <!-- Judul -->
                                     <!-- Tombol Aksi -->
                                     <div class="d-flex gap-2">
@@ -124,6 +132,7 @@
                                             <th style="width: 5px">Kontak</th>
                                             <th style="width: 5px">Umur</th>
                                             <th>Alamat</th>
+                                            <th style="width: 5px">ID</th>
                                             <th style="width: 80px; text-align: center;">Aksi</th>
                                         </tr>
                                     </thead>
@@ -136,6 +145,7 @@
                                                 <td>{{ $item->kontak }}</td>
                                                 <td>{{ $item->umur }} tahun</td>
                                                 <td>{{ $item->alamat }}</td>
+                                                <td>{{ $item->id }}</td>
                                                 <td>
                                                     <a href="karyawan-edit/{{ $item->id }}"
                                                         class="btn btn-icon btn-outline-primary" title="Edit Data">

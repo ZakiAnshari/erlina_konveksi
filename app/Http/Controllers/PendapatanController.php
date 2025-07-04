@@ -20,8 +20,12 @@ class PendapatanController extends Controller
 
         // Filter pencarian berdasarkan 'sumber' jika tersedia
         if (!empty($sumber)) {
-            $query->where('sumber', 'LIKE', '%' . $sumber . '%');
+            $query->where(function ($q) use ($sumber) {
+                $q->where('sumber', 'LIKE', '%' . $sumber . '%')
+                    ->orWhere('id', 'LIKE', '%' . $sumber . '%');
+            });
         }
+
 
         // Eksekusi query dengan paginasi
         $pendapatans = $query->paginate($paginate)->withQueryString();

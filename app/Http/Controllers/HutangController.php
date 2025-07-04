@@ -17,9 +17,12 @@ class HutangController extends Controller
         // Query awal karyawan
         $query = Hutang::query();
 
-        // Filter pencarian berdasarkan 'nama' jika tersedia
+        // Filter pencarian berdasarkan 'nama_pihak' atau 'id' jika tersedia
         if (!empty($nama_pihak)) {
-            $query->where('nama_pihak', 'LIKE', '%' . $nama_pihak . '%');
+            $query->where(function ($q) use ($nama_pihak) {
+                $q->where('nama_pihak', 'LIKE', '%' . $nama_pihak . '%')
+                    ->orWhere('id', 'LIKE', '%' . $nama_pihak . '%');
+            });
         }
 
         // Eksekusi query dengan paginasi

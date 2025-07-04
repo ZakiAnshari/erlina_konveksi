@@ -126,10 +126,12 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 5px">No</th>
+
                                             <th>Tanggal</th>
                                             <th>Sumber</th>
                                             <th>Jumlah</th>
                                             <th style="width: 8px;text-align:center">Bukti</th>
+                                            <th style="width: 5px">ID</th>
                                             <th style="width: 8px;">Aksi</th>
                                         </tr>
                                     </thead>
@@ -137,11 +139,13 @@
                                         @forelse ($pendapatans as $index => $item)
                                             <tr>
                                                 <td>{{ $pendapatans->firstItem() + $index }}</td>
+
                                                 <td>{{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') }}
                                                 </td>
 
                                                 <td>{{ $item->sumber }}</td>
                                                 <td>Rp {{ number_format($item->jumlah, 0, ',', '.') }}</td>
+
                                                 <td style="text-align: center">
                                                     @if ($item->bukti_pendapatan)
                                                         <img src="{{ asset('storage/' . $item->bukti_pendapatan) }}"
@@ -152,7 +156,7 @@
                                                         <span class="text-muted">Tidak ada bukti</span>
                                                     @endif
                                                 </td>
-
+                                                <td>{{ $item->id }}</td>
                                                 <td>
                                                     <a href="pendapatan-edit/{{ $item->id }}"
                                                         class="btn btn-icon btn-outline-primary" title="Edit Data">

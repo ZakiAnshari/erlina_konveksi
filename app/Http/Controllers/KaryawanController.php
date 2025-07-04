@@ -17,10 +17,18 @@ class KaryawanController extends Controller
         // Query awal karyawan
         $query = Karyawan::query();
 
-        // Filter pencarian berdasarkan 'nama' jika tersedia
         if (!empty($nama)) {
-            $query->where('nama', 'LIKE', '%' . $nama . '%');
+            $query->where(function ($q) use ($nama) {
+                $q->where('nama', 'LIKE', '%' . $nama . '%');
+
+                // Hanya cari berdasarkan ID jika inputnya angka
+                if (is_numeric($nama)) {
+                    $q->orWhere('id', $nama); // exact match untuk ID
+                }
+            });
         }
+
+
 
         // Eksekusi query dengan paginasi
         $karyawan = $query->paginate($paginate)->withQueryString();

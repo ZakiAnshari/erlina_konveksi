@@ -25,8 +25,12 @@ class UserController extends Controller
 
         // Filter pencarian berdasarkan nama jika tersedia
         if (!empty($name)) {
-            $query->where('name', 'LIKE', '%' . $name . '%');
+            $query->where(function ($q) use ($name) {
+                $q->where('name', 'LIKE', '%' . $name . '%')
+                    ->orWhere('id', 'LIKE', '%' . $name . '%');
+            });
         }
+
 
         // Eksekusi query dengan paginasi
         $users = $query->paginate($paginate)->withQueryString();

@@ -146,6 +146,7 @@
                                         <th>Nama Lengkap</th>
                                         <th>Contact</th>
                                         <th>Hak Akses</th>
+                                        <th style="width: 5px">ID</th>
                                         <th style="width: 80px; text-align: center;">Aksi</th>
                                     </tr>
                                 </thead>
@@ -162,6 +163,7 @@
                                                     {{ $item->role->name ?? 'Role Tidak Ditemukan' }}
                                                 </span>
                                             </td>
+                                            <td>{{ $item->id }}</td>
                                             <td>
                                                 <a href="user-show/{{ $item->id }}"
                                                     class="btn btn-icon btn-outline-info" title="Lihat Data">
