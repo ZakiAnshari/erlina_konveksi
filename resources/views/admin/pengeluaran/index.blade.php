@@ -127,11 +127,11 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 5px">No</th>
+                                            <th style="width: 5px">Kode</th>
                                             <th>Tanggal</th>
                                             <th>Sumber</th>
                                             <th>Jumlah</th>
                                             <th style="width: 8px;text-align:center">Bukti</th>
-                                            <th style="width: 5px">ID</th>
                                             <th style="width: 80px; text-align: center;">Aksi</th>
                                         </tr>
                                     </thead>
@@ -139,6 +139,7 @@
                                         @forelse ($pengeluarans as $index => $item)
                                             <tr>
                                                 <td>{{ $pengeluarans->firstItem() + $index }}</td>
+                                                <td>{{ $item->id }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') }}
                                                 </td>
 
@@ -154,20 +155,22 @@
                                                         <span class="text-muted">Tidak ada bukti</span>
                                                     @endif
                                                 </td>
-                                                <td>{{ $item->id }}</td>
+                                                
                                                 <td>
                                                     <a href="pengeluaran-edit/{{ $item->id }}"
                                                         class="btn btn-icon btn-outline-primary" title="Edit Data">
                                                         <i class="bx bx-edit-alt"></i>
                                                     </a>
 
-                                                    <a href="javascript:void(0)"
-                                                        onclick="confirmDeletePengeluaran({{ $item->id }}, @js($item->sumber))"
-                                                        style="display:inline;">
-                                                        <button class="btn btn-icon btn-outline-danger">
-                                                            <i class="bx bx-trash"></i>
-                                                        </button>
-                                                    </a>
+                                                    @if (auth()->user()->role_id == 1)
+                                                        <a href="javascript:void(0)"
+                                                            onclick="confirmDeletePengeluaran({{ $item->id }}, @js($item->sumber))"
+                                                            style="display:inline;">
+                                                            <button class="btn btn-icon btn-outline-danger">
+                                                                <i class="bx bx-trash"></i>
+                                                            </button>
+                                                        </a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @empty

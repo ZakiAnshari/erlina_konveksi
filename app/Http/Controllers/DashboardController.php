@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Hutang;
 use App\Models\Pendapatan;
+use App\Models\ActivityLog;
 use App\Models\Pengeluaran;
 use Illuminate\Http\Request;
 
@@ -16,11 +17,15 @@ class DashboardController extends Controller
         $totalHutang = Hutang::sum('jumlah');
         $saldo = $totalPendapatan - $totalPengeluaran - $totalHutang;
 
+        // Ambil data log terbaru (limit 10 atau semua dengan paginate)
+        $logs = ActivityLog::with('user')->latest()->paginate(10);
+
         return view('admin.dashboard.index', compact(
             'totalPendapatan',
             'totalPengeluaran',
             'totalHutang',
-            'saldo'
+            'saldo',
+            'logs' // kirim ke view
         ));
     }
 }

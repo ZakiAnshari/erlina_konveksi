@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('title', 'Dashboard')
 @section('content')
+
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             <div class="col-lg-12 mb-4 order-0">
@@ -33,6 +34,63 @@
             </div>
 
             <!-- Total Revenue -->
+            @if (Auth::user()->role_id == 1)
+                <div class="col-12 col-lg-12 order-2 order-md-3 order-lg-2 mb-4">
+                    <div class="card shadow-sm rounded">
+                        <div class="card-header bg-white border-bottom">
+                            <h4 class="mb-0 text-center fw-bold">Riwayat Aktivitas Pengguna</h4>
+                        </div>
+
+                        <div class="card-body px-4 py-2">
+                            <div class="table-responsive">
+                                <table class="table table-bordered align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th style="width: 5%">No</th>
+                                            <th style="width: 20%">Nama Pengguna</th>
+                                            <th style="width: 10%">Aksi</th>
+                                            <th>Deskripsi</th>
+                                            <th class="text-end" style="width: 10%">Waktu</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($logs as $index => $log)
+                                            <tr>
+                                                <td>{{ $logs->firstItem() + $index }}</td>
+                                                <td>{{ $log->user->name ?? 'User Dihapus' }}</td>
+                                                <td>
+                                                    <span class="badge bg-primary">{{ $log->action }}</span>
+                                                </td>
+                                                <td class="text-start">
+                                                    {!! nl2br(e($log->description)) !!}
+                                                </td>
+                                                <td class="text-end">
+                                                    {{ $log->created_at->setTimezone('Asia/Jakarta')->format('H:i') }} WIB
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="5" class="text-center text-muted py-4">
+                                                    Belum ada aktivitas yang tercatat.
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="card-footer bg-white border-top">
+                            <div class="d-flex justify-content-end mt-3 px-4">
+                                {{ $logs->appends(request()->input())->links('pagination::bootstrap-4') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+
+
             <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
                 <div class="card">
                     <div class="row row-bordered g-0">
@@ -108,7 +166,8 @@
                                     </div>
                                     <!-- Content -->
                                     <span class="text-muted fw-medium d-block mb-1 text-center ">Pendapatan</span>
-                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp {{ number_format($totalPendapatan, 0, ',', '.') }} </h6>
+                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp
+                                        {{ number_format($totalPendapatan, 0, ',', '.') }} </h6>
                                 </div>
                             </div>
                         </div>
@@ -137,7 +196,8 @@
                                     </div>
                                     <!-- Content -->
                                     <span class="text-muted fw-medium d-block mb-1 text-center ">Pengeluaran</span>
-                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp {{ number_format($totalPengeluaran, 0, ',', '.') }}</h6>
+                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp
+                                        {{ number_format($totalPengeluaran, 0, ',', '.') }}</h6>
                                 </div>
                             </div>
                         </div>
@@ -169,7 +229,8 @@
                                     </div>
                                     <!-- Content -->
                                     <span class="text-muted fw-medium d-block mb-1 text-center ">Hutang</span>
-                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp {{ number_format($totalHutang, 0, ',', '.') }} </h6>
+                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp
+                                        {{ number_format($totalHutang, 0, ',', '.') }} </h6>
                                 </div>
                             </div>
                         </div>
@@ -198,7 +259,8 @@
                                     </div>
                                     <!-- Content -->
                                     <span class="text-muted fw-medium d-block mb-1 text-center ">Saldo</span>
-                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp {{ number_format($saldo, 0, ',', '.') }} </h6>
+                                    <h6 class="card-title mb-0 text-primary fw-bold">Rp
+                                        {{ number_format($saldo, 0, ',', '.') }} </h6>
                                 </div>
                             </div>
                         </div>

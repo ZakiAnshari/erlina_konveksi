@@ -8,6 +8,7 @@ use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Middleware\RoleAccessMiddleware;
 use App\Http\Controllers\PendapatanController;
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\LaporanPendapatanController;
 use App\Http\Controllers\LaporanPengeluaranController;
@@ -64,5 +65,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user-show/{id}', [UserController::class, 'show'])->name('user.show')->middleware(RoleAccessMiddleware::class);
     // LOGOUT
     Route::get('/logout', [AuthController::class, 'logout']);
+    // web.php
+    Route::middleware(['auth', 'admin'])->group(function () {
+        Route::get('/activity-logs', [ActivityLogController::class, 'index'])->name('activity-logs.index');
+    });
 });
-

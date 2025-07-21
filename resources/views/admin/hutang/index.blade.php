@@ -137,13 +137,13 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 5%">No</th>
+                                            <th style="width: 5px">Kode</th>
                                             <th>Nama Pihak</th>
                                             <th>Tipe</th>
                                             <th>Jumlah (Rp)</th>
                                             <th>Jatuh Tempo</th>
                                             <th>Status</th>
                                             <th>Tanggal Dicatat</th>
-                                            <th style="width: 5px">ID</th>
                                             <th style="width: 80px; text-align: center;">Aksi</th>
                                         </tr>
                                     </thead>
@@ -151,6 +151,7 @@
                                         @forelse ($hutangs as $index => $item)
                                             <tr>
                                                 <td>{{ $hutangs->firstItem() + $index }}</td>
+                                                <td>{{ $item->id }}</td>
                                                 <td>{{ $item->nama_pihak }}</td>
                                                 <td>
                                                     <span
@@ -169,7 +170,7 @@
                                                 </td>
 
                                                 <td>{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
-                                                <td>{{ $item->id }}</td>
+
                                                 <td>
                                                     <a href="hutang-edit/{{ $item->id }}"
                                                         class="btn btn-icon btn-outline-primary" title="Edit Data">

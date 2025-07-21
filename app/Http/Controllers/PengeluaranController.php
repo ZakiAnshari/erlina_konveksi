@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityLog;
 use App\Models\Pengeluaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -85,18 +87,17 @@ class PengeluaranController extends Controller
 
         // Ambil data lama
         $pengeluaran = Pengeluaran::findOrFail($id);
+        $old = $pengeluaran->getOriginal();
 
         // Format jumlah ke angka (hilangkan Rp, titik, spasi)
         $validated['jumlah'] = floatval(str_replace(['Rp', '.', ' '], '', $validated['jumlah']));
 
         // Proses upload file jika ada
         if ($request->hasFile('bukti_pengeluaran')) {
-            // Hapus file lama jika ada
             if ($pengeluaran->bukti_pengeluaran && Storage::disk('public')->exists($pengeluaran->bukti_pengeluaran)) {
                 Storage::disk('public')->delete($pengeluaran->bukti_pengeluaran);
             }
 
-            // Simpan file baru
             $path = $request->file('bukti_pengeluaran')->store('images', 'public');
             $pengeluaran->bukti_pengeluaran = $path;
         }
@@ -106,8 +107,47 @@ class PengeluaranController extends Controller
         $pengeluaran->sumber  = $validated['sumber'];
         $pengeluaran->jumlah  = $validated['jumlah'];
 
-        // Simpan
+        // Simpan perubahan
         $pengeluaran->save();
+
+        // Catat log jika role admin/operator
+        if (Auth::user()->role_id == 2) {
+            $changedFields = [];
+
+            if ($old['tanggal'] != $pengeluaran->tanggal) {
+                $changedFields[] = 'Tanggal: ' . $pengeluaran->tanggal;
+            }
+
+            if ($old['sumber'] != $pengeluaran->sumber) {
+                $changedFields[] = 'Sumber: ' . $pengeluaran->sumber;
+            }
+
+            if ($old['jumlah'] != $pengeluaran->jumlah) {
+                $changedFields[] = 'Jumlah: Rp' . number_format($pengeluaran->jumlah, 0, ',', '.');
+            }
+
+            if ($request->hasFile('bukti_pengeluaran')) {
+                $changedFields[] = 'Bukti Pengeluaran: Diperbarui';
+            }
+
+            if (!empty($changedFields)) {
+                $tanggal = now()->translatedFormat('d F Y'); // Contoh: 21 Juli 2025
+
+                $description = Auth::user()->name . " melakukan pengeditan data pengeluaran.\n";
+                $description .= "Perubahan yang dilakukan:\n";
+                foreach ($changedFields as $field) {
+                    $description .= "- " . $field . "\n";
+                }
+                $description .= "ID Pengeluaran: {$pengeluaran->id}\n";
+                $description .= "Tanggal Aksi: {$tanggal}";
+
+                ActivityLog::create([
+                    'user_id'     => Auth::id(),
+                    'action'      => 'Edit Pengeluaran',
+                    'description' => $description,
+                ]);
+            }
+        }
 
         // Feedback
         Alert::success('Sukses', 'Data berhasil diperbarui');

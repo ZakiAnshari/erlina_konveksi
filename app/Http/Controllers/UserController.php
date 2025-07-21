@@ -10,7 +10,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
-
     public function index(Request $request)
     {
         $user = Auth::user();
