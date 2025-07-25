@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use id;
 use App\Models\ActivityLog;
 use App\Models\Pengeluaran;
 use Illuminate\Http\Request;
@@ -40,16 +41,14 @@ class PengeluaranController extends Controller
         $data = $request->validate([
             'tanggal'           => 'required|date',
             'sumber'            => 'required|string|max:255',
-            'jumlah'            => 'required|string',               // terima “Rp 900.000” dsb.
+            'jumlah'            => 'required|string',
             'bukti_pengeluaran' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        // 2. Bersihkan dan konversi nilai rupiah → numerik
-        //    - buang karakter selain angka
-        //    - casting ke integer/float sesuai kebutuhan kolom DB
+        // 2. Konversi jumlah dari format rupiah ke angka
         $data['jumlah'] = (int) preg_replace('/[^\d]/', '', $data['jumlah']);
 
-        // 3. Upload file (jika ada)
+        // 3. Upload bukti (jika ada)
         if ($request->hasFile('bukti_pengeluaran')) {
             $data['bukti_pengeluaran'] = $request
                 ->file('bukti_pengeluaran')
@@ -57,9 +56,28 @@ class PengeluaranController extends Controller
         }
 
         // 4. Simpan ke database
-        Pengeluaran::create($data);
+        $pengeluaran = Pengeluaran::create($data);
 
-        // 5. Beri umpan balik ke pengguna
+        // 5. Jika user adalah karyawan (role_id == 2), simpan ke activity_logs
+        if (Auth::user()->role_id == 2) {
+            $userName = Auth::user()->name;
+            $tanggalLog = now()->translatedFormat('d F Y');
+
+            $deskripsi = "$userName menambahkan data pengeluaran.\n";
+            $deskripsi .= "- ID Pengeluaran: {$pengeluaran->id}\n";
+            $deskripsi .= "- Tanggal: {$pengeluaran->tanggal}\n";
+            $deskripsi .= "- Sumber: {$pengeluaran->sumber}\n";
+            $deskripsi .= "- Jumlah: Rp" . number_format($pengeluaran->jumlah, 0, ',', '.') . "\n";
+            $deskripsi .= "- Tanggal Aksi: $tanggalLog";
+
+            ActivityLog::create([
+                'user_id'     => Auth::id(),
+                'action'      => 'Tambah Pengeluaran',
+                'description' => $deskripsi,
+            ]);
+        }
+
+        // 6. Tampilkan alert
         Alert::success('Sukses', 'Data pengeluaran berhasil ditambahkan');
 
         return back();
@@ -154,14 +172,29 @@ class PengeluaranController extends Controller
         return redirect()->route('pengeluaran.index');
     }
 
-
     public function destroy($id)
     {
-
         $pengeluaran = Pengeluaran::where('id', $id)->first();
+
+        if (!$pengeluaran) {
+            Alert::error('Gagal', 'Data tidak ditemukan.');
+            return redirect()->route('pengeluaran.index');
+        }
+
+        // Simpan informasi sebelum dihapus untuk log
+        $deskripsiPengeluaran = "ID: {$pengeluaran->id}, Keterangan: {$pengeluaran->keterangan}, Nominal: Rp" . number_format($pengeluaran->jumlah, 0, ',', '.');
+
+        // Hapus data
         $pengeluaran->delete();
 
-        Alert::success('Success', 'Data berhasil di Hapus');
+        // Simpan log aktivitas
+        ActivityLog::create([
+            'user_id'     => Auth::id(),
+            'action' => 'Hapus Pengeluaran',
+            'description' => "Menghapus data pengeluaran: $deskripsiPengeluaran",
+        ]);
+
+        Alert::success('Success', 'Data berhasil dihapus.');
         return redirect()->route('pengeluaran.index');
     }
 }

@@ -111,8 +111,8 @@
                     autofocus
                   />
                   @error('username')
-                      <div class="invalid-feedback">{{ $message }}</div>
-                  @enderror
+    <div class="invalid-feedback">{{ $message }}</div>
+@enderror
                 </div>
 
                 {{-- Password Field --}}
@@ -135,8 +135,8 @@
                       <i class="bx bx-hide"></i>
                     </span>
                     @error('password')
-                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
+    <div class="invalid-feedback d-block">{{ $message }}</div>
+@enderror
                   </div>
                 </div>
 

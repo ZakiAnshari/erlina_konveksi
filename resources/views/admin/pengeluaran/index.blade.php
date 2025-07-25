@@ -155,22 +155,20 @@
                                                         <span class="text-muted">Tidak ada bukti</span>
                                                     @endif
                                                 </td>
-                                                
+
                                                 <td>
                                                     <a href="pengeluaran-edit/{{ $item->id }}"
                                                         class="btn btn-icon btn-outline-primary" title="Edit Data">
                                                         <i class="bx bx-edit-alt"></i>
                                                     </a>
 
-                                                    @if (auth()->user()->role_id == 1)
-                                                        <a href="javascript:void(0)"
-                                                            onclick="confirmDeletePengeluaran({{ $item->id }}, @js($item->sumber))"
-                                                            style="display:inline;">
-                                                            <button class="btn btn-icon btn-outline-danger">
-                                                                <i class="bx bx-trash"></i>
-                                                            </button>
-                                                        </a>
-                                                    @endif
+                                                    <a href="javascript:void(0)"
+                                                        onclick="confirmDeletePengeluaran({{ $item->id }}, @js($item->sumber))"
+                                                        style="display:inline;">
+                                                        <button class="btn btn-icon btn-outline-danger">
+                                                            <i class="bx bx-trash"></i>
+                                                        </button>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @empty

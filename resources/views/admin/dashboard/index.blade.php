@@ -59,8 +59,27 @@
                                                 <td>{{ $logs->firstItem() + $index }}</td>
                                                 <td>{{ $log->user->name ?? 'User Dihapus' }}</td>
                                                 <td>
-                                                    <span class="badge bg-primary">{{ $log->action }}</span>
+                                                    @php
+                                                        $action = strtolower($log->action);
+                                                        $badgeClass = 'bg-primary'; // default
+
+                                                        if (str_contains($action, 'hapus')) {
+                                                            $badgeClass = 'bg-danger';
+                                                        } elseif (
+                                                            str_contains($action, 'edit') ||
+                                                            str_contains($action, 'ubah')
+                                                        ) {
+                                                            $badgeClass = 'bg-warning text-dark';
+                                                        } elseif (str_contains($action, 'tambah')) {
+                                                            $badgeClass = 'bg-success';
+                                                        }
+                                                    @endphp
+
+                                                    <span class="badge {{ $badgeClass }}">{{ $log->action }}</span>
                                                 </td>
+
+
+
                                                 <td class="text-start">
                                                     {!! nl2br(e($log->description)) !!}
                                                 </td>
