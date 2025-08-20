@@ -24,24 +24,17 @@
                                 <h5>Table Karyawan</h5>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <!-- Form Search -->
-                                   <form method="GET" class="d-flex align-items-center my-3" style="max-width: 350px;">
-    <div class="input-group shadow-sm" style="height: 38px; width: 100%;">
-        <input 
-            type="text" 
-            name="nama" 
-            value="{{ request('nama') }}" 
-            class="form-control border-end-0 py-2 px-3" 
-            style="font-size: 0.9rem;" 
-            placeholder="Cari nama atau ID karyawan..." 
-            aria-label="Cari nama atau ID">
-        <button 
-            class="btn btn-outline-primary px-3" 
-            type="submit" 
-            style="font-size: 0.9rem;">
-            <i class="bx bx-search"></i>
-        </button>
-    </div>
-</form>
+                                    <form method="GET" class="d-flex align-items-center my-3" style="max-width: 350px;">
+                                        <div class="input-group shadow-sm" style="height: 38px; width: 100%;">
+                                            <input type="text" name="nama" value="{{ request('nama') }}"
+                                                class="form-control border-end-0 py-2 px-3" style="font-size: 0.9rem;"
+                                                placeholder="Cari nama atau ID karyawan..." aria-label="Cari nama atau ID">
+                                            <button class="btn btn-outline-primary px-3" type="submit"
+                                                style="font-size: 0.9rem;">
+                                                <i class="bx bx-search"></i>
+                                            </button>
+                                        </div>
+                                    </form>
 
                                     <!-- Judul -->
                                     <!-- Tombol Aksi -->

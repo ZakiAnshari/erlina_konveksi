@@ -95,8 +95,8 @@
                 <thead class="table-light">
                     <tr>
                         <th style="width: 10px">No</th>
-                        <th>Tanggal</th>
-                        <th>Sumber</th>
+                        <th class="text-start">Tanggal</th>
+                        <th class="text-start">Sumber</th>
                         <th class="text-end">Jumlah</th>
                     </tr>
                 </thead>
@@ -106,8 +106,8 @@
                         @php $total += $item->jumlah; @endphp
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') }}</td>
-                            <td>{{ $item->sumber }}</td>
+                            <td class="text-start">{{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') }}</td>
+                            <td class="text-start">{{ $item->sumber }}</td>
                             <td class="text-end">Rp {{ number_format($item->jumlah, 0, ',', '.') }}</td>
                         </tr>
                     @empty
@@ -123,6 +123,7 @@
                     </tr>
                 </tfoot>
             </table>
+
         </div>
 
         <!-- Tanda Tangan -->
@@ -131,8 +132,8 @@
             <div class="col-6 text-end">
                 <p class="mb-1">{{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}</p>
                 <p class="mb-5">Pemilik Usaha</p>
-                <p class="fw-bold text-uppercase mb-1">Cici Herman</p>
-                <p class="mb-0">NIP: 19650415 199003 1 004</p>
+                <p class="fw-bold text-uppercase mb-1">M Rizki Pratama</p>
+
             </div>
         </div>
 
